@@ -1,0 +1,295 @@
+openapi: 3.0.3
+info:
+  title: Student Management API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+apis: ["./routes/*.js"]
+
+tags:
+  - name: students
+    description: API for students in the system
+  - name: grades
+    description: API for grades in the system
+
+paths:
+  /grades:
+    get:
+      tags:
+        - grades
+      summary: Get all grades
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Grade"
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
+  /grades/{id}:
+    get:
+      tags:
+        - grades
+      summary: Get grade by id
+      parameters:
+        - name: id
+          in: path
+          description: ID of grade to return
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Grade"
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
+    delete:
+      tags:
+        - grades
+      summary: Delete grade by id
+      parameters:
+        - name: id
+          in: path
+          description: ID of grade to delete
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: OK
+
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
+    put:
+      tags:
+        - grades
+      summary: Update grade by id
+      parameters:
+        - name: id
+          in: path
+          description: ID of grade to update
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Grade object that needs to be updated to the system
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Grade"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Grade"
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
+  /grades/new:
+    post:
+      tags:
+        - grades
+      summary: Create a new grade
+      requestBody:
+        description: Grade object that needs to be added to the system
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Grade"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Grade"
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
+  /grades/student:
+    get:
+      tags:
+        - grades
+      summary: Get all grades for a student
+      parameters:
+        - name: studentId
+          in: query
+          description: ID of student to return grades for
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Grade"
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
+
+  /students/filter:
+    get:
+      tags:
+        - students
+      summary: Get all students with sorting and filtering options
+      parameters:
+        - name: firstName
+          in: query
+          description: First name of student to return
+          required: false
+          schema:
+            type: string
+        - name: lastName
+          in: query
+          description: Last name of student to return
+          required: false
+          schema:
+            type: string
+        - name: satScoreFrom
+          in: query
+          description: Minimum sat score of student to return
+          required: false
+          schema:
+            type: number
+        - name: satScoreTo
+          in: query
+          description: Maximum sat score of student to return
+          required: false
+          schema:
+            type: number
+        - name: graduationScoreFrom
+          in: query
+          description: Minimum graduation score of student to return
+          required: false
+          schema:
+            type: number
+        - name: graduationScoreTo
+          in: query
+          description: Maximum graduation score of student to return
+          required: false
+          schema:
+            type: number
+        - name: orderBy
+          in: query
+          description: Order by field
+          required: false
+          schema:
+            type: string
+            enum:
+              - firstName
+              - lastName
+              - satScore
+              - graduationScore
+        - name: orderDirection
+          in: query
+          description: Order direction
+          required: false
+          schema:
+            type: string
+            enum:
+              - ASC
+              - DESC
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Student"
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
+components:
+  schemas:
+    Grade:
+      type: object
+      required:
+        - id
+        - courseName
+        - courseGrade
+        - studentId
+      properties:
+        id:
+          type: integer
+          description: The auto-generated id of the grade
+        courseName:
+          type: string
+          description: The name of the course
+        courseGrade:
+          type: integer
+          description: The grade of the course
+        studentId:
+          type: integer
+          description: The id of the student
+      example:
+        courseName: Math
+        courseGrade: 90
+        studentId: 1
+    Student:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - satScore
+        - graduationScore
+        - phone
+        - birthday
+      properties:
+        id:
+          type: integer
+          description: The auto-generated id of the student
+        firstName:
+          type: string
+          description: The first name of the student
+        lastName:
+          type: string
+          description: The last name of the student
+        satScore:
+          type: integer
+          description: The sat score of the student
+        graduationScore:
+          type: integer
+          description: The graduation score of the student
+        phone:
+          type: string
+          description: The phone number of the student
+        birthday:
+          type: string
+          description: The birthday of the student
+      example:
+        firstName: John
+        lastName: Doe
+        satScore: 556
+        graduationScore: 107
+        phone: 054-659-4945
+        birthday: 1997-03-08
+
+     
