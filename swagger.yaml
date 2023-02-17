@@ -150,7 +150,99 @@ paths:
           description: Internal Server Error
         "404":
           description: Not Found
-
+  /students/new:
+    post:
+      tags:
+        - students
+      summary: Create a new student
+      requestBody:
+        description: Student object that needs to be added to the system
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Student"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+        "500":
+          description: Internal Server Error
+        "400":
+          description: Bad Request
+  /students/{id}:
+    get:
+      tags:
+        - students
+      summary: Get student by id
+      parameters:
+        - name: id
+          in: path
+          description: ID of student to return
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
+    delete:
+      tags:
+        - students
+      summary: Delete student by id
+      parameters:
+        - name: id
+          in: path
+          description: ID of student to delete
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
+    put:
+      tags:
+        - students
+      summary: Update student by id
+      parameters:
+        - name: id
+          in: path
+          description: ID of student to update
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Student object that needs to be updated to the system
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Student"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
   /students/filter:
     get:
       tags:
@@ -213,6 +305,18 @@ paths:
             enum:
               - ASC
               - DESC
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: number
+        - name: pageSize
+          in: query
+          description: Page size
+          required: false
+          schema:
+            type: number
 
       responses:
         "200":
@@ -291,5 +395,3 @@ components:
         graduationScore: 107
         phone: 054-659-4945
         birthday: 1997-03-08
-
-     
