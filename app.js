@@ -6,6 +6,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var studentsRouter = require('./routes/students');
 var gradesRouter = require('./routes/grades');
+const authRouter = require('./routes/auth');
 const { sequelize } = require('./database/db');
 const errorHandler = require('./middlewares/ErrorHandler');
 const swaggerUi = require('swagger-ui-express');
@@ -64,6 +65,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/students', studentsRouter);
 app.use('/grades', gradesRouter);
+app.use('/auth', authRouter);
 
 
 

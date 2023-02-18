@@ -11,6 +11,8 @@ tags:
     description: API for students in the system
   - name: grades
     description: API for grades in the system
+  - name: auth
+    description: API for authentication
 
 paths:
   /grades:
@@ -331,6 +333,32 @@ paths:
           description: Internal Server Error
         "404":
           description: Not Found
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Register a new user
+      requestBody:
+        description: User object that needs to be added to the system
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "500":
+          description: Internal Server Error
+        "400":
+          description: Bad Request
+        "409":
+          description: Conflict
+
 components:
   schemas:
     Grade:
@@ -395,3 +423,32 @@ components:
         graduationScore: 107
         phone: 054-659-4945
         birthday: 1997-03-08
+    User:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+      properties:
+        id:
+          type: integer
+          description: The auto-generated id of the user
+        firstName:
+          type: string
+          description: The first name of the user
+        lastName:
+          type: string
+          description: The last name of the user
+        email:
+          type: string
+          description: The email of the user
+        password:
+          type: string
+          description: The password of the user
+      example:
+        firstName: Natan
+        lastName: Gershbein
+        email: Natanger97@gmail.com
+        password: "1234"
+        

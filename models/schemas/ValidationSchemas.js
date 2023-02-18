@@ -16,3 +16,12 @@ module.exports.NewGradeSchema = Joi.object({
     studentId: Joi.number().required(),
 
 });
+
+
+module.exports.NewUserSchema = Joi.object({
+    firstName: Joi.string().required().min(3).max(60),
+    lastName: Joi.string().required(),
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(4).max(60),
+
+});

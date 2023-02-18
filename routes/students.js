@@ -2,7 +2,7 @@ var express = require("express");
 const { Op, fn } = require("sequelize");
 var router = express.Router();
 const { Sequelize, sequelize } = require("../database/db");
-const { validateNewUserInput } = require("../middlewares/Validations");
+const { validateNewUserInput, validateNewStudentInput } = require("../middlewares/Validations");
 const Student = require("../models/Student.model");
 const Grade = require("../models/Grade.model");
 const StudentController = require("../controller/Student.Controller");
@@ -30,7 +30,7 @@ router.get(
 
 router.post(
   "/new",
-  validateNewUserInput,
+  validateNewStudentInput,
   StudentController.createNewStudent
 
 );
