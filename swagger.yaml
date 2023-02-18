@@ -6,6 +6,10 @@ servers:
   - url: http://localhost:3000
 apis: ["./routes/*.js"]
 
+
+
+
+
 tags:
   - name: students
     description: API for students in the system
@@ -17,6 +21,8 @@ tags:
 paths:
   /grades:
     get:
+      security:
+        - APIKeyAuth: []
       tags:
         - grades
       summary: Get all grades
@@ -57,6 +63,8 @@ paths:
         "404":
           description: Not Found
     delete:
+      security:
+        - APIKeyAuth: []
       tags:
         - grades
       summary: Delete grade by id
@@ -76,6 +84,8 @@ paths:
         "404":
           description: Not Found
     put:
+      security:
+        - APIKeyAuth: []
       tags:
         - grades
       summary: Update grade by id
@@ -106,6 +116,8 @@ paths:
           description: Not Found
   /grades/new:
     post:
+      security:
+        - APIKeyAuth: []
       tags:
         - grades
       summary: Create a new grade
@@ -129,6 +141,8 @@ paths:
           description: Not Found
   /grades/student:
     get:
+      security:
+        - APIKeyAuth: []
       tags:
         - grades
       summary: Get all grades for a student
@@ -154,6 +168,8 @@ paths:
           description: Not Found
   /students/new:
     post:
+      security:
+        - APIKeyAuth: []  
       tags:
         - students
       summary: Create a new student
@@ -177,6 +193,8 @@ paths:
           description: Bad Request
   /students/{id}:
     get:
+      security:
+        - APIKeyAuth: []
       tags:
         - students
       summary: Get student by id
@@ -198,7 +216,9 @@ paths:
           description: Internal Server Error
         "404":
           description: Not Found
-    delete:
+    delete: 
+      security:
+        - APIKeyAuth: []
       tags:
         - students
       summary: Delete student by id
@@ -217,6 +237,8 @@ paths:
         "404":
           description: Not Found
     put:
+      security:
+        - APIKeyAuth: []
       tags:
         - students
       summary: Update student by id
@@ -247,6 +269,8 @@ paths:
           description: Not Found
   /students/filter:
     get:
+      security:
+        - APIKeyAuth: []
       tags:
         - students
       summary: Get all students with sorting and filtering options
@@ -482,3 +506,30 @@ components:
       required:
         - email
         - password
+  securitySchemes:
+    BearerAuth:
+      type: ApiKey
+      scheme: bearer
+      bearerFormat: JWT
+      
+    APIKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+
+
+# security:
+#   - APIKeyAuth: []
+
+
+      
+    
+
+
+    
+
+
+
+
+
+

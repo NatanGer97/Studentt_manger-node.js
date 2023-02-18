@@ -12,6 +12,7 @@ const errorHandler = require('./middlewares/ErrorHandler');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const YAML = require('yamljs');
+const verifyJWT = require('./middlewares/auth/VerifyJWT');
 
 require('dotenv').config()
 
@@ -66,9 +67,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
+app.use(verifyJWT);
 app.use('/students', studentsRouter);
 app.use('/grades', gradesRouter);
-app.use('/auth', authRouter);
 
 
 
