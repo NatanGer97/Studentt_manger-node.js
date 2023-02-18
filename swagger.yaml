@@ -358,7 +358,28 @@ paths:
           description: Bad Request
         "409":
           description: Conflict
-
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Login a user
+      requestBody:
+        description: User object that needs to be added to the system
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginSchema"
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+    
 components:
   schemas:
     Grade:
@@ -451,4 +472,13 @@ components:
         lastName: Gershbein
         email: Natanger97@gmail.com
         password: "1234"
-        
+    loginSchema:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password

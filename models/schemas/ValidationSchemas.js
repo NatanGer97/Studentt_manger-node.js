@@ -25,3 +25,8 @@ module.exports.NewUserSchema = Joi.object({
     password: Joi.string().required().min(4).max(60),
 
 });
+
+module.exports.loginSchema = Joi.object({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(4).max(60),
+});

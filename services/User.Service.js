@@ -22,4 +22,15 @@ async function createUser(user) {
   }
 };
 
-module.exports = {createUser,};
+const getUserByEmail = async (email) => {
+    try {
+        const user = await User.findOne({where: {email: email}});
+        return user;
+    }
+    catch (err) {
+        throw err;
+    }
+
+};
+
+module.exports = {createUser,  getUserByEmail};
