@@ -19,6 +19,23 @@ tags:
     description: API for authentication
 
 paths:
+  /sendEmail:
+    post:
+      summary: Send email to user
+      requestBody:
+        description: Email object that needs to be sent to the user
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Email"
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+        "404":
+          description: Not Found
   /grades:
     get:
       security:
@@ -406,6 +423,16 @@ paths:
     
 components:
   schemas:
+    Email:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          description: The email of the user
+      example:
+        email: "kk"
     Grade:
       type: object
       required:
@@ -437,7 +464,7 @@ components:
         - lastName
         - satScore
         - graduationScore
-        - phone
+        - email
         - birthday
       properties:
         id:
@@ -455,9 +482,9 @@ components:
         graduationScore:
           type: integer
           description: The graduation score of the student
-        phone:
+        email:
           type: string
-          description: The phone number of the student
+          description: The email  of the student
         birthday:
           type: string
           description: The birthday of the student
@@ -466,7 +493,7 @@ components:
         lastName: Doe
         satScore: 556
         graduationScore: 107
-        phone: 054-659-4945
+        email: "Natanger97@gmail.com"
         birthday: 1997-03-08
     User:
       type: object

@@ -7,7 +7,7 @@ const Student = sequelize.define('students' ,{
     firstName: {type: DataTypes.STRING, allowNull: false, validate: {notEmpty: true} },
     lastName: {type: DataTypes.STRING, allowNull: false, validate: {notEmpty: true}},
     birthday: {type: DataTypes.DATEONLY, allowNull: false,},
-    phone:{type: DataTypes.STRING, allowNull: false, },
+    email:{type: DataTypes.STRING, allowNull: false, },
     satScore: {type: DataTypes.INTEGER, allowNull: false,},
     graduationScore: {type: DataTypes.INTEGER,}
 

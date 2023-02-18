@@ -3,7 +3,7 @@ const Joi = require('joi');
 module.exports.NewStudentSchema = Joi.object({
     firstName: Joi.string().required().min(3).max(60),
     lastName: Joi.string().required(),
-    phone: Joi.string().required(),
+    email: Joi.string().required().email(),
     birthday: Joi.date().required(),
     satScore: Joi.number().required(),
     graduationScore: Joi.number().required(),

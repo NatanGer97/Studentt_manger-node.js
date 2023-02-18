@@ -3,18 +3,18 @@ const Student = require("../models/Student.model");
 const StudentService = require("../services/Student.Service");
 
 const createNewStudent = async (req, res, next) => {
-  const { firstName, lastName, birthday, phone, satScore, graduationScore } =
+  const { firstName, lastName, birthday, email, satScore, graduationScore } =
     req.body;
   const student = {
     firstName: firstName,
     lastName: lastName,
     birthday: birthday,
-    phone: phone,
+    email: email,
     satScore: satScore,
     graduationScore: graduationScore,
   };
   try {
-    const newStudent = await StudentService.createNewStudent(student);
+    const newStudent = await StudentService.createStudent(student);
     res.status(201).json(newStudent);
   } catch (err) {
     console.log(err);
@@ -77,7 +77,7 @@ async function filterStudents(req, res, next) {
     "firstName",
     "lastName",
     "birthday",
-    "phone",
+    "email",
     "satScore",
     "graduationScore",
   ];
